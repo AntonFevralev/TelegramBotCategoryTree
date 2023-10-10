@@ -14,11 +14,9 @@ import java.util.regex.Pattern;
  * Обработчик команды /removeElement
  */
 public class RemoveElementCommand implements Command {
+
     private final SendBotMessageService sendBotMessageService;
-
     private final CategoryService categoryService;
-
-
 
     public RemoveElementCommand(SendBotMessageService sendBotMessageService, CategoryService categoryService) {
         this.sendBotMessageService = sendBotMessageService;
@@ -27,6 +25,7 @@ public class RemoveElementCommand implements Command {
 
     /**
      * Удаляет элемент и всех его потомков
+     *
      * @param update
      */
     @Override
@@ -39,14 +38,16 @@ public class RemoveElementCommand implements Command {
             String match = matcher.group(1);
             categoriesFromMessage.add(match);
         }
-        if (categoriesFromMessage.size() == 1) {if(categoryService.checkIfCategoryExist(categoriesFromMessage.get(0))) {
-            try {
-                categoryService.deleteCategoryAndDescendants(categoriesFromMessage.get(0));
-            } catch (NoSuchElementException e) {
-                sendBotMessageService.sendMessage(update.getMessage().getChatId().toString(),
-                        e.getMessage());
+        if (categoriesFromMessage.size() == 1) {
+            if (categoryService.checkIfCategoryExist(categoriesFromMessage.get(0))) {
+                try {
+                    categoryService.deleteCategoryAndDescendants(categoriesFromMessage.get(0));
+                } catch (NoSuchElementException e) {
+                    sendBotMessageService.sendMessage(update.getMessage().getChatId().toString(),
+                            e.getMessage());
+                }
             }
-        }} else {
+        } else {
             sendBotMessageService.sendMessage(update.getMessage().getChatId().toString(),
                     "Необходимо ввести одну категорию в <> скобках");
         }

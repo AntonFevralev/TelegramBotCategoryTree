@@ -15,12 +15,10 @@ public class CommandContainer {
     private final ImmutableMap<String, Command> commandMap;
     private final Command unknownCommand;
 
-    private final CategoryService categoryService;
-
-    private final ExcelService excelService;
 
     /**
      * Добавляет команды и их обработчки в контейнер
+     *
      * @param sendBotMessageService
      * @param categoryService
      * @param excelService
@@ -28,7 +26,7 @@ public class CommandContainer {
     public CommandContainer(SendBotMessageService sendBotMessageService, CategoryService categoryService,
                             ExcelService excelService) {
 
-        commandMap = ImmutableMap.<String,Command>builder()
+        commandMap = ImmutableMap.<String, Command>builder()
                 .put(ADD_ELEMENT.getCommandName(), new AddElementCommand(sendBotMessageService, categoryService))
                 .put(REMOVE_ELEMENT.getCommandName(), new RemoveElementCommand(sendBotMessageService, categoryService))
                 .put(VIEW_TREE.getCommandName(), new ViewTreeCommand(sendBotMessageService, categoryService))
@@ -39,12 +37,12 @@ public class CommandContainer {
                 .build();
 
         unknownCommand = new UnknownCommand(sendBotMessageService);
-        this.categoryService = categoryService;
-        this.excelService = excelService;
+
     }
 
     /**
      * Извлекает команду из контейнера по ее названию
+     *
      * @param commandIdentifier
      * @return
      */

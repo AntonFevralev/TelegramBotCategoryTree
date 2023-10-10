@@ -17,14 +17,14 @@ public class SendBotMessageService {
 
     private final TelegramBot telegramBot;
 
-
     public SendBotMessageService(TelegramBot telegramBot) {
         this.telegramBot = telegramBot;
     }
 
     /**
      * отправляет текстовое сообщение пользователю
-     * @param chatId чат id пользователя
+     *
+     * @param chatId  чат id пользователя
      * @param message текст сообщения
      */
     public void sendMessage(String chatId, String message) {
@@ -44,11 +44,12 @@ public class SendBotMessageService {
 
     /**
      * Отправляет документ пользователю
-     * @param chatId чат id пользователя
+     *
+     * @param chatId   чат id пользователя
      * @param filePath путь к файлу
      * @throws TelegramApiException
      */
-    public void sendExcelFile(long chatId, String filePath) throws TelegramApiException{
+    public void sendExcelFile(long chatId, String filePath) throws TelegramApiException {
         SendDocument sendDocument = new SendDocument();
         sendDocument.setChatId(String.valueOf(chatId));
         sendDocument.setDocument(new InputFile(new File(filePath)));

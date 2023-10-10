@@ -19,11 +19,8 @@ import java.util.*;
 @Service
 public class ExcelService {
 
-
     private final CategoryRepository categoryRepository;
-
     private final CategoryService categoryService;
-
 
     public ExcelService(CategoryRepository categoryRepository, CategoryService categoryService) {
         this.categoryRepository = categoryRepository;
@@ -32,6 +29,7 @@ public class ExcelService {
 
     /**
      * Создает файл Excel с деревом категорий
+     *
      * @return путь к файлу
      */
     public String createFile() {
@@ -56,25 +54,27 @@ public class ExcelService {
 
     /**
      * Рекурсивно создает строку - категорию в Excel
-     * @param sheet лист
-     * @param category категория
-     * @param depth глубина вложенности
-     * @param rowIndex индекс строки
+     *
+     * @param sheet             лист
+     * @param category          категория
+     * @param depth             глубина вложенности
+     * @param rowIndex          индекс строки
      * @param printedCategories список уже внесенных категорий
      * @return индекс строки
      */
     private int createCategoryRow(Sheet sheet, Category category, int depth, int rowIndex, List<Category> printedCategories) {
         if (!printedCategories.contains(category)) {
             Row row = sheet.createRow(rowIndex++);
-        Cell cell = row.createCell(depth);
-        cell.setCellValue(category.getName());
-        printedCategories.add(category);
-        List<Category> subcategories = categoryRepository.findAllByParentId(category.getId()).orElseThrow();
-        for (Category subcategory : subcategories) {
+            Cell cell = row.createCell(depth);
+            cell.setCellValue(category.getName());
+            printedCategories.add(category);
+            List<Category> subcategories = categoryRepository.findAllByParentId(category.getId()).orElseThrow();
+            for (Category subcategory : subcategories) {
                 rowIndex = createCategoryRow(sheet, subcategory, depth + 1, rowIndex, printedCategories);
-        }}
-            return rowIndex;
+            }
         }
+        return rowIndex;
+    }
 
 
 }

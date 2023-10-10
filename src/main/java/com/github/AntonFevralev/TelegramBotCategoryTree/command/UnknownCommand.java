@@ -9,7 +9,6 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 public class UnknownCommand implements Command {
 
     public final String UNKNOWN_MESSAGE = "Такой команды нет, напишите /help чтобы узнать доступные команды.";
-
     private final SendBotMessageService sendBotMessageService;
 
     public UnknownCommand(SendBotMessageService sendBotMessageService) {
@@ -18,6 +17,7 @@ public class UnknownCommand implements Command {
 
     /**
      * Сообщает клиенту о том, что такой команды нет
+     *
      * @param update
      */
     @Override

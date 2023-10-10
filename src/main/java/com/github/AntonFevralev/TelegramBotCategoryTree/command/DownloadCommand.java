@@ -10,10 +10,9 @@ import java.io.FileNotFoundException;
 /**
  * Обработчик команды /download
  */
-public class DownloadCommand implements Command{
+public class DownloadCommand implements Command {
 
     private final SendBotMessageService sendBotMessageService;
-
     private final ExcelService excelService;
 
 
@@ -24,10 +23,11 @@ public class DownloadCommand implements Command{
 
     /**
      * Отправляет клиенту Excel файл с деревом категорий
+     *
      * @param update
      */
     @Override
-    public void execute(Update update)  {
+    public void execute(Update update) {
         try {
             sendBotMessageService.sendExcelFile(update.getMessage().getChatId(), excelService.createFile());
         } catch (TelegramApiException e) {

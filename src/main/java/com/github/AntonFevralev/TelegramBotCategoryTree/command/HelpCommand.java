@@ -25,6 +25,7 @@ public class HelpCommand implements Command {
 
     /**
      * Отправляет сообщение с инструкцией к боту
+     *
      * @param update
      */
     @Override

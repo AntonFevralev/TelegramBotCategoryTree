@@ -10,11 +10,12 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 /**
- *  Инициализует бота
+ * Инициализует бота
  */
 @Component
 public class BotInitializer {
     private final TelegramBot telegramBot;
+
     @Autowired
     public BotInitializer(TelegramBot telegramBot) {
         this.telegramBot = telegramBot;
@@ -22,14 +23,15 @@ public class BotInitializer {
 
     /**
      * Устанавливает сессию и регистрирует бота
+     *
      * @throws TelegramApiException
      */
     @EventListener({ContextRefreshedEvent.class})
-    public void init()throws TelegramApiException {
+    public void init() throws TelegramApiException {
         TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
-        try{
+        try {
             telegramBotsApi.registerBot(telegramBot);
-        } catch (TelegramApiException e){
+        } catch (TelegramApiException e) {
 
         }
     }

@@ -7,14 +7,10 @@ public enum CommandName {
 
     VIEW_TREE("/viewTree"),
     ADD_ELEMENT("/addElement"),
-
     REMOVE_ELEMENT("/removeElement"),
     HELP("/help"),
-
     START("/start"),
-
     DOWNLOAD("/download"),
-
     NO("/noSuchCommand");
     private final String commandName;
 

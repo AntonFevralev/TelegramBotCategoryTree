@@ -1,8 +1,10 @@
 package com.github.AntonFevralev.TelegramBotCategoryTree.service.impl;
+
 import com.github.AntonFevralev.TelegramBotCategoryTree.model.Category;
 import com.github.AntonFevralev.TelegramBotCategoryTree.repository.CategoryRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
+
 import java.util.*;
 
 /**
@@ -19,6 +21,7 @@ public class CategoryService {
 
     /**
      * Добавляет корневой элемент
+     *
      * @param name имя элемента
      */
     public void addRootElement(String name) {
@@ -28,8 +31,9 @@ public class CategoryService {
 
     /**
      * Добавляет элемент у которого есть родитель
+     *
      * @param parent имя родителя
-     * @param child имя элемента
+     * @param child  имя элемента
      */
     public void addChildElement(String parent, String child) {
         Integer parentId = categoryRepository.findByName(parent).orElseThrow().getId();
@@ -39,9 +43,10 @@ public class CategoryService {
 
     /**
      * Создает строку - дерево категорий для вывода в telegram
+     *
      * @param stringBuilder базовая строка
-     * @param parentId id родителя
-     * @param depth начальная глубина вложения элемента
+     * @param parentId      id родителя
+     * @param depth         начальная глубина вложения элемента
      */
     public String createCategoryTree(StringBuilder stringBuilder, int parentId, int depth) {
         List<Category> categoryList = categoryRepository.findAllByParentId(parentId).
@@ -63,6 +68,7 @@ public class CategoryService {
 
     /**
      * Вызывыает метод удаления категории и всех ее потомков, если такая категория существует
+     *
      * @param categoryName
      */
     @Transactional
@@ -74,6 +80,7 @@ public class CategoryService {
 
     /**
      * Удаляет рекурсивно категорию и ее потомков
+     *
      * @param category
      */
     private void deleteCategoryAndDescendantsRecursive(Category category) {
@@ -87,7 +94,6 @@ public class CategoryService {
     }
 
     /**
-     *
      * @return id корневой категории
      */
     public int findMinParent() {
@@ -96,6 +102,7 @@ public class CategoryService {
 
     /**
      * Проверяет есть ли такая категории в БД
+     *
      * @param s имя категории
      * @return
      */

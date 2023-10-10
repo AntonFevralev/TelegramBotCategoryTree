@@ -12,7 +12,8 @@ import java.util.regex.Pattern;
 /**
  * Обработчик команды /addElement
  */
-public class AddElementCommand implements Command{
+public class AddElementCommand implements Command {
+
     private final SendBotMessageService sendBotMessageService;
     private final CategoryService categoryService;
 
@@ -20,8 +21,10 @@ public class AddElementCommand implements Command{
         this.sendBotMessageService = sendBotMessageService;
         this.categoryService = categoryService;
     }
+
     /**
      * Добавляет элемент в базу данных
+     *
      * @param update
      */
     @Override
@@ -34,25 +37,24 @@ public class AddElementCommand implements Command{
             String match = matcher.group(1);
             categoriesFromMessage.add(match);
         }
-        switch (categoriesFromMessage.size()){
-            case 1-> {
-                if(!categoryService.checkIfCategoryExist(categoriesFromMessage.get(0))){
+        switch (categoriesFromMessage.size()) {
+            case 1 -> {
+                if (!categoryService.checkIfCategoryExist(categoriesFromMessage.get(0))) {
                     categoryService.addRootElement(categoriesFromMessage.get(0));
-                }else{
+                } else {
                     sendBotMessageService.sendMessage(update.getMessage().getChatId().toString(),
                             "Такая категория уже есть");
                 }
             }
-            case 2-> {
-                boolean parentIsExist =categoryService.checkIfCategoryExist(categoriesFromMessage.get(0));
+            case 2 -> {
+                boolean parentIsExist = categoryService.checkIfCategoryExist(categoriesFromMessage.get(0));
                 boolean childIsExist = categoryService.checkIfCategoryExist(categoriesFromMessage.get(1));
-                if(parentIsExist&&!childIsExist){
-                categoryService.addChildElement(categoriesFromMessage.get(0), categoriesFromMessage.get(1));}
-                else if(!parentIsExist){
+                if (parentIsExist && !childIsExist) {
+                    categoryService.addChildElement(categoriesFromMessage.get(0), categoriesFromMessage.get(1));
+                } else if (!parentIsExist) {
                     sendBotMessageService.sendMessage(update.getMessage().getChatId().toString(),
                             "Родительская категория не существует");
-                }
-                else {
+                } else {
                     sendBotMessageService.sendMessage(update.getMessage().getChatId().toString(),
                             "Такая категория уже есть");
                 }
@@ -61,6 +63,5 @@ public class AddElementCommand implements Command{
                     "Необходимо ввести либо одну корневую категорию," +
                             " либо <родительская категория> <дочерняя категория>");
         }
-
     }
 }

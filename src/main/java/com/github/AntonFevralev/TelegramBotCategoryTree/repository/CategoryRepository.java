@@ -16,6 +16,7 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
 
     /**
      * Получить все категории-потомки
+     *
      * @param parentId id родителя
      * @return
      */
@@ -23,6 +24,7 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
 
     /**
      * Поиск минимального id корневой категории
+     *
      * @return
      */
     @Query(nativeQuery = true, value = "SELECT MIN(parent_id) FROM categories")
@@ -30,6 +32,7 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
 
     /**
      * Поиск категории по имени
+     *
      * @param categoryName
      * @return
      */

@@ -18,27 +18,18 @@ import static com.github.AntonFevralev.TelegramBotCategoryTree.command.CommandNa
 public class TelegramBot extends TelegramLongPollingBot {
 
     public static String COMMAND_PREFIX = "/";
-
     private final TelegramBotConfig botConfig;
-
     private final CommandContainer commandContainer;
-
-    private final CategoryService categoryService;
-
-    private final ExcelService excelService;
-
-
 
     public TelegramBot(TelegramBotConfig botConfig, CategoryService categoryService, ExcelService excelService) {
         this.botConfig = botConfig;
-        this.excelService = excelService;
         this.commandContainer = new CommandContainer(new SendBotMessageService(this), categoryService,
                 excelService);
-        this.categoryService = categoryService;
     }
 
     /**
      * Передает входящие обновления обработчику соответствующей команды
+     *
      * @param update
      */
     @Override
@@ -48,13 +39,13 @@ public class TelegramBot extends TelegramLongPollingBot {
             if (message.startsWith(COMMAND_PREFIX)) {
                 String commandIdentifier = message.split(" ")[0];
                 commandContainer.retrieveCommand(commandIdentifier).execute(update);
-            }else {
+            } else {
                 commandContainer.retrieveCommand(NO.getCommandName()).execute(update);
-            }}else {
+            }
+        } else {
             commandContainer.retrieveCommand(NO.getCommandName()).execute(update);
         }
-        }
-
+    }
 
     @Override
     public String getBotUsername() {

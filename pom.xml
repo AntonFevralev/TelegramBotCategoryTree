@@ -15,6 +15,11 @@
 	<description>Тестовое задание PanDev</description>
 	<properties>
 		<java.version>17</java.version>
+		<poi.version>5.2.2</poi.version>
+		<poi.ooxml.version>5.2.2</poi.ooxml.version>
+		<telegrambots.version>6.1.0</telegrambots.version>
+		<spring.beans.version>6.0.12</spring.beans.version>
+		<guava.version>32.1.2-jre</guava.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -28,12 +33,12 @@
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
-			<version>5.2.2</version>
+			<version>${poi.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml</artifactId>
-			<version>5.2.2</version>
+			<version>${poi.ooxml.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.postgresql</groupId>
@@ -53,17 +58,17 @@
 		<dependency>
 			<groupId>org.telegram</groupId>
 			<artifactId>telegrambots</artifactId>
-			<version>6.5.0</version>
+			<version>${telegrambots.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-beans</artifactId>
-			<version>6.0.12</version>
+			<version>${spring.beans.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
-			<version>28.2-android</version>
+			<version>${guava.version}</version>
 		</dependency>
 	</dependencies>
 
